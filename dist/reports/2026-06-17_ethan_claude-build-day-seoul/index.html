@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>클로드 빌드 데이, 첫 순간을 함께 하다 | Entropy Makeup</title>
+  <script src="../../assets/config.js"></script>
+  <script>
+    window.REPORT_PORTAL_AUTH = {
+      ...(window.REPORT_PORTAL_AUTH || {}),
+      assetBase: "../../assets/"
+    };
+  </script>
+  <script src="../../assets/gate.js"></script>
+  <link rel="stylesheet" href="../../assets/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a class="brand" href="../../" aria-label="Entropy Makeup Report Hub">
+        <span class="brand-logos">
+          <img class="brand-mark" src="../../assets/entropy-logo-bk.png" alt="Entropy Makeup" />
+          <span class="brand-logo-separator" aria-hidden="true"></span>
+          <img class="brand-mark brand-mark-morandi" src="../../assets/morandi-logo.png" alt="Morandi Park" />
+        </span>
+        <span class="brand-text">Source Note<small>HTML note</small></span>
+      </a>
+      <div class="top-actions" aria-label="보고서 상태">
+        <span class="badge badge-status">현황 공유</span>
+        <span class="badge badge-normal">정상</span>
+        <span class="chip" data-page-read-state>읽음 처리됨</span>
+        <button class="ghost-button" type="button" data-page-read-toggle>읽지 않음으로 표시</button>
+        <span class="chip">업데이트 2026.06.17</span>
+      </div>
+    </div>
+  </header>
+
+  <main data-report-page data-report-slug="2026-06-17_ethan_claude-build-day-seoul" data-report-updated-at="2026-06-17">
+    <section class="report-hero">
+      <div class="wrap report-hero-grid">
+        <div>
+          <div class="eyebrow">Source Note</div>
+          <h1>클로드 빌드 데이, 첫 순간을 함께 하다</h1>
+          <p class="report-summary">Anthropic 한국 공식 런칭 행사 Claude Build Day Seoul의 주요 세션, 빌더 메시지, 멘토링 트랙에서 나온 자사몰·Claude Code 도입 논의를 정리한 현장 노트입니다.</p>
+        </div>
+        <div class="meta-grid" aria-label="보고서 메타 정보">
+          <div class="meta-item"><b>보고 부서</b><span>미국 TF</span></div><div class="meta-item"><b>담당자</b><span>Ethan</span></div><div class="meta-item"><b>보고 유형</b><span>현황 공유</span></div><div class="meta-item"><b>작성일</b><span>2026.06.17</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="report-map" aria-labelledby="toc-title">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Document Map</div>
+            <h2 id="toc-title">문서 목차</h2>
+          </div>
+        </div>
+        <nav class="toc-grid" aria-label="문서 목차">
+          <a class="toc-link" href="#행사-개요"><span class="toc-num">01</span><span class="toc-label">행사 개요</span></a><a class="toc-link" href="#1-환영사-anthropic의-한국-전략"><span class="toc-num">02</span><span class="toc-label">1. 환영사: Anthropic의 한국 전략</span></a><a class="toc-link" href="#2-파이어사이드-챗-ai-시대의-빌딩"><span class="toc-num">03</span><span class="toc-label">2. 파이어사이드 챗: AI 시대의 빌딩</span></a><a class="toc-link" href="#3-멘토링-트랙-테이블별-주요-논의"><span class="toc-num">04</span><span class="toc-label">3. 멘토링 트랙: 테이블별 주요 논의</span></a><a class="toc-link" href="#4-현재-전략에서-확인해야-할-가정-5개"><span class="toc-num">05</span><span class="toc-label">4. 현재 전략에서 확인해야 할 가정 5개</span></a><a class="toc-link" href="#결론-및-향후-계획"><span class="toc-num">06</span><span class="toc-label">결론 및 향후 계획</span></a>
+        </nav>
+      </div>
+    </section>
+
+    <section class="report-section" id="행사-개요">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="section-kicker">01</div>
+        <h2>행사 개요</h2>
+      </div>
+    </div>
+    <div class="report-section-content">
+      <p>2026년 6월 16일, Anthropic은 한국 공식 런칭을 기념하는 <strong>Claude Build Day Seoul</strong> 행사를 개최하였다. 이 행사는 Bass Ventures와 공동 주최로 진행되었으며, 100명 이상의 스타트업 창업자, 운영자, 개발자가 참석하였다.</p>
+<div class="table-wrap"><table><thead><tr><th>항목</th><th>내용</th></tr></thead><tbody><tr><td data-label="항목">행사</td><td data-label="내용">Claude Build Day Seoul</td></tr><tr><td data-label="항목">일시</td><td data-label="내용">2026년 6월 16일</td></tr><tr><td data-label="항목">주최</td><td data-label="내용">Anthropic, Bass Ventures</td></tr><tr><td data-label="항목">참석자</td><td data-label="내용">스타트업 창업자, 운영자, 개발자 100명 이상</td></tr><tr><td data-label="항목">원본 기록</td><td data-label="내용">Tiro 현장 노트</td></tr></tbody></table></div>
+<p>행사는 세 흐름으로 진행되었다.</p>
+<ol><li>환영사</li><li>클로드 본사와 파이어사이드 챗</li><li>멘토링 트랙</li></ol>
+    </div>
+  </div>
+</section>
+<section class="report-section" id="1-환영사-anthropic의-한국-전략">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="section-kicker">02</div>
+        <h2>1. 환영사: Anthropic의 한국 전략</h2>
+      </div>
+    </div>
+    <div class="report-section-content">
+      <p>Anthropic International Head of DN Business Startups인 Guillaume은 한국이 Anthropic에 전략적으로 중요한 시장임을 강조하였다. 최신 경제 지수에 따르면 한국인의 <span class="wiki-link">클로드(Claude)</span> 사용량은 인구 대비 평균의 <strong>3.5배</strong> 이상으로, 전 세계 상위 12개국에 해당한다.</p>
+<p>사용 패턴은 기술·창작 분야에 집중되어 있어, 이번 런칭은 다음과 같은 의미로 설명되었다.</p>
+<blockquote>AI를 한국에 소개하는 것이 아니라, 한국 빌더들이 이미 하고 있는 것에 Anthropic이 따라가는 것이다.</blockquote>
+<p>주요 한국 파트너 사례는 다음과 같이 소개되었다.</p>
+<div class="table-wrap"><table><thead><tr><th>파트너</th><th>소개된 내용</th></tr></thead><tbody><tr><td data-label="파트너">LG CNS</td><td data-label="소개된 내용">LG 그룹 전체에 Claude Enterprise 도입</td></tr><tr><td data-label="파트너">Law and Company</td><td data-label="소개된 내용">AI 법률 에이전트·어시스턴트 구축</td></tr><tr><td data-label="파트너">Chao Corporation</td><td data-label="소개된 내용">ChaoTalk 제품에 Claude 직접 탑재, 한국·일본·미국 고객 대상 AI 지원 에이전트 운영</td></tr><tr><td data-label="파트너">Samsung</td><td data-label="소개된 내용">Anthropic 최신 펀딩 라운드에 전략적 인프라 파트너로 참여</td></tr></tbody></table></div>
+<p>Anthropic은 한국 법인 대표로 Ki-young을 선임하였다. 그는 30년 경력의 리더로 소개되었으며, 한국 시장 운영의 현지 기반을 맡게 된다.</p>
+<p>이어 Cloud for Startups 프로그램 운영, Cloud Meetup, Replit·Korea Investment Partners·Korea Investment Accelerator와 공동 주최하는 <strong>Push to Prod 해커톤</strong> 등 커뮤니티 활동도 예고되었다. Cloud Meetup은 지난 9월 이후 수천 명의 한국 개발자가 참여한 프로그램으로 언급되었다.</p>
+    </div>
+  </div>
+</section>
+<section class="report-section" id="2-파이어사이드-챗-ai-시대의-빌딩">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="section-kicker">03</div>
+        <h2>2. 파이어사이드 챗: AI 시대의 빌딩</h2>
+      </div>
+    </div>
+    <div class="report-section-content">
+      <p>Bass Ventures의 안재훈이 진행을 맡아, Anthropic Claude 플랫폼팀 <strong>Head of Engineering</strong> Kevin(Caitlin)과 <strong>Head of Product</strong> Angela와 대화를 나누었다.</p>
+<h3>Claude 플랫폼팀 소개</h3>
+<p>Claude 플랫폼팀은 API, SDK, 콘솔, 문서 등 외부 개발자 도구와 Claude.ai, Claude Code, Cowork 등 Anthropic 자체 제품의 인프라를 동시에 담당한다.</p>
+<p>핵심 철학은 내·외부 플랫폼 간 <strong>대칭성(symmetry)</strong> 유지다. Anthropic은 외부 빌더와 동일한 기반 위에서 자체 제품을 구축함으로써 개발자 경험을 지속적으로 개선한다고 설명하였다.</p>
+<p>Kevin의 엔지니어링 조직은 약 <strong>150명</strong>으로, 이전 직장인 Stripe의 동급 조직이 수천 명 규모였던 것과 비교해 현저히 작은 규모다. 팀 단위는 6~8명으로 구성된다.</p>
+<p>Anthropic 내부 운영 방식의 특징으로는 속도 중심 철학이 언급되었다.</p>
+<blockquote>이 문제를 하루 안에 할 수 있을까? 일주일 안에는?</blockquote>
+<h3>오케스트레이션과 모델 발전 방향</h3>
+<p>모델의 지능 수준을 요구 분포로 바라보는 관점이 제시되었다. 저·중·고 지능이 필요한 문제군이 존재하며, 모델 성능이 <span class="wiki-link">기하급수</span>적으로 향상됨에 따라 이미 해결 가능한 문제군에서는 <strong>비용·속도 최적화</strong>가 핵심 과제가 된다.</p>
+<p>이를 위한 전략으로 <strong>어드바이저 패턴</strong>이 소개되었다. Haiku·Sonnet 등 소형 모델과 Opus 등 대형 모델을 조합해 문제 난이도에 맞게 쓰는 방식이다.</p>
+<p>반면 신약 개발, 금융 트레이딩, 대규모 코드베이스 마이그레이션 등은 여전히 <strong>지능 한계(intelligence-bound)</strong> 문제로, 더 강력한 모델 개발이 지속적으로 필요하다고 설명되었다.</p>
+<h3>오케스트레이션 레이어의 소유권</h3>
+<p>Anthropic은 <strong>Claude Managed Agents</strong>를 출시하여 기본 하네스를 제공하기 시작하였다. 핵심 원칙은 하네스가 모델의 특성, 특히 도구 호출 능력을 충분히 반영해야 한다는 것이다.</p>
+<p>대부분의 스타트업에게 하네스 최적화는 핵심 차별화 요소가 아니므로 Anthropic의 기본 하네스를 활용하는 것이 효율적이다. 단, <strong>Cursor</strong>처럼 하네스 자체가 제품의 핵심 경쟁력인 경우에는 직접 최적화가 유효하다.</p>
+<p>향후에는 메모리, 파일 시스템, 도구 호출 등 저수준 하네스 위에 어드바이저 전략, best-of-N, 생성-대립 모델 등 <strong>메타 하네스</strong> 레이어를 빌더가 직접 실험하는 방향이 유망하다고 제시되었다.</p>
+<h3>빌더를 위한 기회 영역</h3>
+<p>단순히 하네스 위에 얇은 레이어를 얹는 제품은 지속 가능성이 낮다. 반면 특정 도메인의 깊은 문제를 해결하는 제품, 새로운 폼팩터와 사용자 경험을 발굴하는 제품에는 충분한 기회가 있다.</p>
+<div class="table-wrap"><table><thead><tr><th>기회 영역</th><th>설명</th></tr></thead><tbody><tr><td data-label="기회 영역">중소기업 대상 완전 자동화 백오피스 시스템</td><td data-label="설명">회계, 급여, HR을 통합하는 자동화 시스템</td></tr><tr><td data-label="기회 영역">팀별 맞춤형 에이전트 팀 구성 서비스</td><td data-label="설명">소프트웨어의 라스트 마일 경제성을 실현하는 조직별 에이전트 구성</td></tr><tr><td data-label="기회 영역">비디오 게임 분야</td><td data-label="설명">플레이어 취향에 따라 세계가 실시간으로 생성되는 게임, 레거시 코드베이스 현대화</td></tr></tbody></table></div>
+<h3>프로덕션 전환 시 주요 장애물</h3>
+<div class="table-wrap"><table><thead><tr><th>장애물</th><th>설명</th></tr></thead><tbody><tr><td data-label="장애물">권한 문제</td><td data-label="설명">개인 환경에서 팀·조직 환경으로 전환할 때 에이전트의 접근 범위와 허용 행동 정의가 즉각적인 장벽이 된다. 신원·권한 제어 체계 정비가 선행되어야 한다.</td></tr><tr><td data-label="장애물">스케일링 문제</td><td data-label="설명">클라우드 환경에서 에이전트 런타임 관리, 스핀업·다운, 샌드박스 연결 유지 등 아키텍처 설계가 핵심이다. Anthropic은 하네스를 서버에서 실행하고 작업별 임시 샌드박스를 생성하는 방식으로 재설계한 경험을 공유하였다.</td></tr></tbody></table></div>
+<h3>빌더를 위한 핵심 메시지</h3>
+<blockquote>Angela: 몇 달 전에는 불가능했지만 지금 막 가능해진 것, 혹은 아직 불가능하지만 곧 가능해질 것을 찾아 거기서 시작하라.</blockquote>
+<blockquote>Kevin: 다음 세대 모델을 위해 제품을 설계하라. 현재 완벽하게 작동하지 않더라도, 모델이 업그레이드될 때 재설계 없이 파도를 탈 수 있다.</blockquote>
+    </div>
+  </div>
+</section>
+<section class="report-section" id="3-멘토링-트랙-테이블별-주요-논의">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="section-kicker">04</div>
+        <h2>3. 멘토링 트랙: 테이블별 주요 논의</h2>
+      </div>
+    </div>
+    <div class="report-section-content">
+      <p>멘토링 세션은 GTM 트랙과 빌드 트랙으로 나뉘어 약 90분간 진행되었다. 각 테이블에서는 유사한 문제를 가진 참가자들과 멘토가 매칭되어 심층 토론을 진행하였다.</p>
+<div class="table-wrap"><table><thead><tr><th>주제</th><th>주요 논의</th></tr></thead><tbody><tr><td data-label="주제">AI 도입 비용 예측 문제</td><td data-label="주요 논의">부산 소재 빌딩 관리 스타트업 미도어는 데모 구축은 가능하나 실제 런칭 시 API 비용 산정이 어려워 정식 출시를 보류 중이었다. 입주 기업 약 2,000개사 대상 예약·결제·네트워킹 서비스에 AI 도입을 검토하고 있다.</td></tr><tr><td data-label="주제">메이크업 브랜드의 Claude Code 전사 도입</td><td data-label="주요 논의">Brand Genome은 미국 자사몰 운영과 Claude Code 조직 도입을 병행 추진 중이다.</td></tr><tr><td data-label="주제">모바일 앱 광고 측정 솔루션의 PLG 전환</td><td data-label="주요 논의">AB180 에어브릿지는 B2B SLG 방식에서 미국 시장 PLG로 전환을 시도 중이다. SDK 설치율 20%에 그치는 문제가 핵심이며, 멘토는 SDK 설치 기피 이유를 세분화하고 이탈 유저와 잔류 유저 인터뷰로 가설을 검증할 것을 권고하였다.</td></tr><tr><td data-label="주제">글로벌 C2C 플랫폼 로컬라이제이션</td><td data-label="주요 논의">MAU 약 300만 중 비영어권 유입이 65%이나 전환율이 저조한 상황이다. 단기적으로는 번체자, 장기적으로는 일본어를 먼저 진행하기로 결정하였다. 멘토는 로컬라이제이션 전에 로그인 이탈 원인을 유저 인터뷰로 검증하고, 영향이 큰 단일 페이지부터 실험할 것을 권고하였다.</td></tr><tr><td data-label="주제">개인화 AI 페르소나 및 레이턴시 트레이드오프</td><td data-label="주요 논의">개인화된 전기(biography) 생성과 짧은 레이턴시 간 트레이드오프를 논의하였다. 자연스러운 대화를 위한 레이턴시 임계값에 대한 구체적 가이드를 얻었다.</td></tr><tr><td data-label="주제">롱러닝 에이전트 컨텍스트 관리</td><td data-label="주요 논의">아크포인트는 장기 실행 에이전트의 컨텍스트를 효율적으로 관리하는 방법을 논의하였다. 오픈소스 프로젝트 Hent AI 사례를 소개하며, 대화 스트림을 일정 시간 단위로 읽어 컨텍스트를 증분 업데이트하는 구조가 제안되었다.</td></tr><tr><td data-label="주제">모델에서 더 많은 지능 끌어내기</td><td data-label="주요 논의">17번 테이블에서는 통근 중 주변 부동산 시세를 실시간으로 알려주는 데모 등 모델 지능의 경계를 밀어붙이는 사례가 공유되었다.</td></tr></tbody></table></div>
+<h3>3.1 자사몰 고도화 논의</h3>
+<p>Brand Genome 관련 논의에서는 자사몰 매출 하락, 플랫폼 성장과 자사몰 전이, Claude Code 전사 도입이 함께 다뤄졌다.</p>
+<div class="table-wrap"><table><thead><tr><th>표면 이슈</th><th>실제 쟁점</th><th>확인해야 할 질문</th></tr></thead><tbody><tr><td data-label="표면 이슈">자사몰 매출이 매달 30~40% 하락</td><td data-label="실제 쟁점">자사몰의 역할과 구매 이유가 약함</td><td data-label="확인해야 할 질문">고객이 왜 굳이 자사몰에서 사야 하는가?</td></tr><tr><td data-label="표면 이슈">광고 담당자가 전환율 하락으로 광고 중단</td><td data-label="실제 쟁점">광고 문제가 아니라 유입-전환-상품-오퍼 문제일 수 있음</td><td data-label="확인해야 할 질문">트래픽 부족인가, CVR 하락인가, AOV 하락인가, 재구매 하락인가?</td></tr><tr><td data-label="표면 이슈">TikTok Shop과 Amazon은 점진 개선</td><td data-label="실제 쟁점">플랫폼 성장은 되지만 자사몰로 자연 전이되지 않음</td><td data-label="확인해야 할 질문">플랫폼 구매자를 자사몰 고객으로 만들 명시적 장치가 있는가?</td></tr><tr><td data-label="표면 이슈">대표는 자사몰 중심 철학이 강함</td><td data-label="실제 쟁점">철학과 고객 행동 사이의 간극</td><td data-label="확인해야 할 질문">고객 관점에서 자사몰은 어떤 가치를 제공하는가?</td></tr><tr><td data-label="표면 이슈">비개발 조직에 Claude Code 도입</td><td data-label="실제 쟁점">툴 교육보다 업무 프로세스 재설계가 필요</td><td data-label="확인해야 할 질문">어떤 반복 업무를 AI-native workflow로 바꿀 것인가?</td></tr><tr><td data-label="표면 이슈">FGI·사용자 대면 필요성 제기</td><td data-label="실제 쟁점">정량 데이터만으로 구매 동기를 알 수 없음</td><td data-label="확인해야 할 질문">구매 전 망설임, 채널 선택 이유, 제품 신뢰 장벽은 무엇인가?</td></tr></tbody></table></div>
+<p>가장 중요한 코멘트는 다음 문장이다.</p>
+<blockquote>광고 소재나 ROAS가 본질이 아니다. 제품과 유저에서 시작해야 한다.</blockquote>
+<p>그리고 <strong>제품과 유저를 이해하는 방식 자체를 운영 시스템화해야 한다.</strong> 즉, 데이터 분석, 사용자 인터뷰, 실험 설계, 광고·PDP·CRM 반영, 결과 회고가 매주 반복되어야 한다.</p>
+    </div>
+  </div>
+</section>
+<section class="report-section" id="4-현재-전략에서-확인해야-할-가정-5개">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="section-kicker">05</div>
+        <h2>4. 현재 전략에서 확인해야 할 가정 5개</h2>
+      </div>
+    </div>
+    <div class="report-section-content">
+      <h3>4.1 TikTok Shop에서 히트하면 자사몰로 자연스럽게 낙수된다</h3>
+<p>이 가정은 매우 위험하다. TikTok Shop의 구매 맥락은 “콘텐츠를 보다가 충동적으로 구매”에 가깝고, Amazon은 “검색·리뷰·배송 신뢰 기반의 목적 구매”에 가깝다. 자사몰은 별도의 이유가 없으면 고객 입장에서 더 번거로운 구매 경로가 된다.</p>
+<p>따라서 TikTok에서 히트 상품이 생겨도 자사몰로 넘어오려면 명시적 브릿지가 필요하다. 예를 들어 자사몰 전용 컬러 진단, 번들, 샘플 키트, 루틴 추천, 멤버십, 리필·재구매 혜택, 장기 사용 콘텐츠, 이메일·SMS CRM이 있어야 한다.</p>
+<h3>4.2 ROAS가 낮아도 예산을 공격적으로 쓰면 돌파구가 생긴다</h3>
+<p>가능은 하지만 조건부다. 낮은 ROAS에도 예산을 써야 하는 경우는 <strong>학습 가치가 높거나, 신규 고객 LTV가 충분하거나, 플랫폼 알고리즘 학습을 위한 최소 데이터가 필요하거나, 브랜드 검색·자사몰 유입 등 간접 효과가 검증되는 경우</strong>다.</p>
+<p>반대로 제품 메시지, PDP, 가격, 배송, 리뷰, 컬러 선택 불안, 신뢰 장벽이 해결되지 않은 상태에서 예산만 늘리면 손실을 확대할 수 있다. 특히 TikTok Shop의 GMV Max 같은 자동화 캠페인은 선택 제품의 유료·오가닉 주문이 캠페인 운영 중 GMV Max에 귀속될 수 있어, 채널 기여도를 그대로 믿고 예산 의사결정을 하면 왜곡이 생길 수 있다.</p>
+<h3>4.3 국내 자사몰 성공 방식을 미국에도 그대로 적용할 수 있다</h3>
+<p>국내에서 자사몰과 입점 채널을 병행하는 이유는 분명하다. 플랫폼은 발견과 거래를 만들고, 자사몰은 브랜드 관계, CRM, 멤버십, 고마진 번들, 신제품 테스트, 고객 데이터 축적을 담당한다.</p>
+<p>하지만 미국에서는 Amazon 신뢰도, TikTok Shop 구매 습관, 배송 기대치, 리뷰 기준, 뷰티 카테고리의 인종·피부톤 다양성이 다르다. 따라서 국내 성공 사례는 <strong>전략 구조</strong>만 참고해야 한다. 그대로 복제하면 안 된다. 미국 자사몰 전략은 미국 고객의 구매 맥락에서 다시 설계해야 한다.</p>
+<h3>4.4 광고 소재나 예산 수준이 문제다</h3>
+<p>광고 담당자가 광고를 중단한 것은 표면상 문제다. 실제로는 운영 병목, 데이터 부재, 대행사 관리 미숙, 채널별 역할 미정의, 자사몰 가치 제안 약화가 결합되어 있다.</p>
+<p>광고 담당자 개인의 의사결정 문제로 보면 조직 학습이 일어나지 않는다. 이 사안은 <strong>Growth Operating System 부재</strong>로 봐야 한다.</p>
+<h3>4.5 Claude Code를 도입하면 조직 생산성이 자동으로 오른다</h3>
+<p>Claude Code는 강력하지만, 비개발 조직이 바로 생산성을 얻는 도구는 아니다. Claude Code는 기본적으로 파일, 코드, 명령어, 개발 워크플로우를 다루는 성격이 강하다.</p>
+<p>또한 기본은 읽기 전용 권한이고, 파일 수정이나 명령 실행 같은 추가 작업에는 명시적 허가가 필요하다. 이 권한 구조는 안전장치이지만, 비개발자에게는 “무엇을 허용해야 하는지 모르겠다”는 장벽이 될 수 있다.</p>
+<p>따라서 전사 도입의 핵심은 “Claude Code 사용법 교육”이 아니라 <strong>업무별 표준 스킬, 안전한 데이터 폴더, 승인 규칙, 리뷰 프로세스, 반복 업무 템플릿</strong>을 만드는 것이다.</p>
+    </div>
+  </div>
+</section>
+<section class="report-section" id="결론-및-향후-계획">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="section-kicker">06</div>
+        <h2>결론 및 향후 계획</h2>
+      </div>
+    </div>
+    <div class="report-section-content">
+      <p>이번 행사는 Anthropic의 한국 공식 런칭을 알리는 동시에, 한국 스타트업 생태계와의 지속적 협력 관계를 구축하는 출발점으로 자리매김하였다. Anthropic은 Cloud for Startups, Cloud Meetup, Push to Prod 해커톤 등 개발자·스타트업 커뮤니티 중심의 활동을 지속할 계획이다.</p>
+<p>참가자들은 도메인 특화 문제 해결, 유저 중심 제품 개발, 다음 세대 모델을 염두에 둔 설계라는 공통된 방향성을 확인하고 네트워킹을 통해 행사를 마무리하였다.</p>
+    </div>
+  </div>
+</section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap line">Entropy Makeup · Internal Source Note · 기준일 2026.06.17</div>
+  </footer>
+  <script src="../../assets/app.js" defer></script>
+</body>
+</html>

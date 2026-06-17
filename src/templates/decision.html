@@ -23,7 +23,7 @@
           <span class="brand-logo-separator" aria-hidden="true"></span>
           <img class="brand-mark brand-mark-morandi" src="../../assets/morandi-logo.png" alt="Morandi Park" />
         </span>
-        <span class="brand-text">Decision Report<small>HTML report</small></span>
+        <span class="brand-text">{{brand_title}}<small>{{brand_subtitle}}</small></span>
       </a>
       <div class="top-actions" aria-label="보고서 상태">
         <span class="badge badge-decision">의사결정 필요</span>
@@ -39,7 +39,7 @@
     <section class="report-hero">
       <div class="wrap report-hero-grid">
         <div>
-          <div class="eyebrow">Decision Request</div>
+          <div class="eyebrow">{{surface_kicker}}</div>
           <h1>{{title}}</h1>
           <p class="report-summary">{{summary}}</p>
         </div>
@@ -53,8 +53,8 @@
       <div class="wrap">
         <div class="section-head">
           <div>
-            <div class="section-kicker">Report Map</div>
-            <h2 id="toc-title">보고 목차</h2>
+            <div class="section-kicker">{{toc_kicker}}</div>
+            <h2 id="toc-title">{{toc_title}}</h2>
           </div>
         </div>
         <nav class="toc-grid" aria-label="문서 목차">
@@ -67,7 +67,7 @@
   </main>
 
   <footer class="footer">
-    <div class="wrap line">Entropy Makeup · Internal Decision Report · 기준일 {{updated_at_display}}</div>
+    <div class="wrap line">Entropy Makeup · {{footer_label}} · 기준일 {{updated_at_display}}</div>
   </footer>
   <script src="../../assets/app.js" defer></script>
 </body>

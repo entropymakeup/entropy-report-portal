@@ -27,6 +27,41 @@ const STATUS_CLASSES = {
   risk: "badge-risk"
 };
 
+const PAGE_LABELS = {
+  decision: {
+    brandTitle: "Decision Report",
+    brandSubtitle: "HTML report",
+    surfaceKicker: "Decision Request",
+    tocKicker: "Report Map",
+    tocTitle: "보고 목차",
+    footerLabel: "Internal Decision Report"
+  },
+  status: {
+    brandTitle: "Status Brief",
+    brandSubtitle: "HTML report",
+    surfaceKicker: "Status Update",
+    tocKicker: "Report Map",
+    tocTitle: "보고 목차",
+    footerLabel: "Internal Status Brief"
+  },
+  lecture_outline: {
+    brandTitle: "Learning Note",
+    brandSubtitle: "HTML outline",
+    surfaceKicker: "Learning Outline",
+    tocKicker: "Document Map",
+    tocTitle: "문서 목차",
+    footerLabel: "Internal Learning Note"
+  },
+  source_note: {
+    brandTitle: "Source Note",
+    brandSubtitle: "HTML note",
+    surfaceKicker: "Source Note",
+    tocKicker: "Document Map",
+    tocTitle: "문서 목차",
+    footerLabel: "Internal Source Note"
+  }
+};
+
 const DEPARTMENT_ORDER = [
   "경영",
   "미국 TF",
@@ -130,6 +165,7 @@ function formatDate(value) {
 
 function renderInline(value) {
   let html = escapeHtml(value);
+  html = html.replace(/\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g, (_match, target, label) => `<span class="wiki-link">${label || target}</span>`);
   html = html.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
   html = html.replace(/`(.+?)`/g, "<code>$1</code>");
   html = html.replace(
@@ -187,6 +223,25 @@ function renderImage(line) {
   return `<figure class="report-figure"><img src="${escapeAttribute(href)}" alt="${escapeAttribute(alt)}" />${caption}</figure>`;
 }
 
+function isHorizontalRule(line) {
+  return /^\s*-{3,}\s*$/.test(line) || /^<hr\b/i.test(line.trim());
+}
+
+function isBlockBoundary(lines, index) {
+  const line = lines[index];
+  return (
+    !line.trim() ||
+    line.startsWith("### ") ||
+    line.startsWith("#### ") ||
+    line.trim().startsWith("```") ||
+    line.trim().startsWith(">") ||
+    isHorizontalRule(line) ||
+    /^\s*-\s+/.test(line) ||
+    /^\s*\d+\.\s+/.test(line) ||
+    (line.includes("|") && lines[index + 1] && isTableSeparator(lines[index + 1]))
+  );
+}
+
 function renderMarkdown(markdown) {
   const lines = markdown.split(/\r?\n/);
   const html = [];
@@ -207,8 +262,42 @@ function renderMarkdown(markdown) {
       continue;
     }
 
+    if (isHorizontalRule(line)) {
+      html.push('<hr class="report-divider" />');
+      index += 1;
+      continue;
+    }
+
+    if (line.trim().startsWith("```")) {
+      const code = [];
+      index += 1;
+      while (index < lines.length && !lines[index].trim().startsWith("```")) {
+        code.push(lines[index]);
+        index += 1;
+      }
+      if (index < lines.length) index += 1;
+      html.push(`<pre><code>${escapeHtml(code.join("\n"))}</code></pre>`);
+      continue;
+    }
+
+    if (line.trim().startsWith(">")) {
+      const quote = [];
+      while (index < lines.length && lines[index].trim().startsWith(">")) {
+        quote.push(lines[index].replace(/^\s*>\s?/, "").trim());
+        index += 1;
+      }
+      html.push(`<blockquote>${renderInline(quote.join(" "))}</blockquote>`);
+      continue;
+    }
+
     if (line.startsWith("### ")) {
       html.push(`<h3>${renderInline(line.replace(/^###\s+/, "").trim())}</h3>`);
+      index += 1;
+      continue;
+    }
+
+    if (line.startsWith("#### ")) {
+      html.push(`<h4>${renderInline(line.replace(/^####\s+/, "").trim())}</h4>`);
       index += 1;
       continue;
     }
@@ -244,10 +333,7 @@ function renderMarkdown(markdown) {
     while (
       index < lines.length &&
       lines[index].trim() &&
-      !lines[index].startsWith("### ") &&
-      !/^\s*-\s+/.test(lines[index]) &&
-      !/^\s*\d+\.\s+/.test(lines[index]) &&
-      !(lines[index].includes("|") && lines[index + 1] && isTableSeparator(lines[index + 1]))
+      !isBlockBoundary(lines, index)
     ) {
       paragraph.push(lines[index].trim());
       index += 1;
@@ -431,7 +517,14 @@ function renderReportSections(sections) {
 function renderReportPage(report) {
   const templatePath = path.join(srcDir, "templates", `${report.report_type}.html`);
   const template = fs.readFileSync(templatePath, "utf8");
+  const pageLabels = PAGE_LABELS[report.content_format] || PAGE_LABELS[report.report_type];
   return renderTemplate(template, {
+    brand_title: escapeHtml(pageLabels.brandTitle),
+    brand_subtitle: escapeHtml(pageLabels.brandSubtitle),
+    surface_kicker: escapeHtml(pageLabels.surfaceKicker),
+    toc_kicker: escapeHtml(pageLabels.tocKicker),
+    toc_title: escapeHtml(pageLabels.tocTitle),
+    footer_label: escapeHtml(pageLabels.footerLabel),
     title: escapeHtml(report.title),
     summary: escapeHtml(report.summary),
     owner: escapeHtml(report.owner),

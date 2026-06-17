@@ -23,7 +23,8 @@ const SECTION_RULES = {
 };
 
 const CONTENT_FORMAT_SECTION_RULES = {
-  lecture_outline: ["강의 목표", "강의 목차", "세션별 진행안", "팀별 실습 예시", "HTML 보고 실습", "운영 메모"]
+  lecture_outline: ["강의 목표", "강의 목차", "세션별 진행안", "팀별 실습 예시", "HTML 보고 실습", "운영 메모"],
+  source_note: []
 };
 
 function parseValue(value) {
@@ -106,7 +107,7 @@ function validateReport(filePath) {
   }
 
   if (data.content_format && !Object.keys(CONTENT_FORMAT_SECTION_RULES).includes(data.content_format)) {
-    errors.push(`${relativePath}: content_format은 lecture_outline만 허용됩니다.`);
+    errors.push(`${relativePath}: content_format은 lecture_outline 또는 source_note만 허용됩니다.`);
   }
 
   if (!isDate(data.created_at)) {
@@ -127,6 +128,9 @@ function validateReport(filePath) {
 
   const expectedSections = CONTENT_FORMAT_SECTION_RULES[data.content_format] || SECTION_RULES[data.report_type] || [];
   const actualSections = extractSections(body);
+  if (data.content_format === "source_note" && actualSections.length === 0) {
+    errors.push(`${relativePath}: source_note는 원문 목차로 사용할 '##' 섹션이 하나 이상 필요합니다.`);
+  }
   expectedSections.forEach((sectionTitle) => {
     if (!actualSections.includes(sectionTitle)) {
       errors.push(`${relativePath}: '${sectionTitle}' 섹션이 필요합니다.`);

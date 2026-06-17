@@ -44,6 +44,8 @@
 ## 운영 메모
 ```
 
+행사 노트, 회의 노트, 리서치 메모, 노트테이킹 문서처럼 원문 Markdown의 목차와 문장이 본문인 경우에는 `content_format: source_note`를 사용할 수 있습니다. 이 경우 기존 섹션 규칙을 강제하지 않고 원문 목차를 `##` 섹션으로 정리해 HTML 가독성만 높입니다.
+
 ## Markdown frontmatter
 
 모든 보고서는 최소 아래 필드를 가져야 합니다.
@@ -70,7 +72,7 @@ summary:
 - `decision_required`: `true`, `false`
 - `attention_required`: `true`, `false`
 - `status`: `normal`, `watch`, `risk`
-- `content_format`: 생략 가능, 강의안 예외만 `lecture_outline`
+- `content_format`: 생략 가능, 강의안은 `lecture_outline`, 노트형 원문 변환은 `source_note`
 
 ## 구현 규칙
 
