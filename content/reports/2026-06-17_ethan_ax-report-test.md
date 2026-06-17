@@ -14,7 +14,7 @@ summary: HTML 보고 포털 MVP가 GitHub Pages에 배포되었습니다. 현재
 
 ## 핵심 요약
 
-HTML 보고 포털의 첫 MVP가 GitHub Pages에 배포되었습니다. 포털은 최신 보고 목록, 의사결정 필요 보고, 확인만 필요한 현황 보고, 보고 요청 대상, 직원별·부서별 목록을 한 화면에서 확인하는 구조입니다.
+HTML 보고 포털의 첫 MVP가 GitHub Pages에 배포되었습니다. 포털은 최신 보고 목록, 의사결정 필요 보고, 현황 공유 보고, 보고 요청 대상, 직원별·부서별 목록을 한 화면에서 확인하는 구조입니다.
 
 이번 보고는 현황 공유 목적이며, 현재 별도 의사결정은 필요하지 않습니다. 배포 URL은 `https://entropymakeup.github.io/entropy-report-portal/`입니다.
 

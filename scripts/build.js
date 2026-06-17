@@ -27,6 +27,37 @@ const STATUS_CLASSES = {
   risk: "badge-risk"
 };
 
+const DEPARTMENT_ORDER = [
+  "경영",
+  "미국 TF",
+  "일본 TF",
+  "Creative 팀",
+  "Growth 팀",
+  "퍼포먼스 마케팅팀",
+  "브랜드 마케팅팀",
+  "SCM팀",
+  "CEO팀",
+  "외부조직"
+];
+
+function departmentRank(department) {
+  const index = DEPARTMENT_ORDER.indexOf(department);
+  return index === -1 ? DEPARTMENT_ORDER.length : index;
+}
+
+function compareDepartments(a, b) {
+  const rankDiff = departmentRank(a) - departmentRank(b);
+  if (rankDiff !== 0) return rankDiff;
+  return String(a).localeCompare(String(b), "ko");
+}
+
+function comparePeople(a, b) {
+  const orderDiff = Number(a.order ?? 999) - Number(b.order ?? 999);
+  if (orderDiff !== 0) return orderDiff;
+  if (a.leader === b.leader) return String(a.name).localeCompare(String(b.name), "ko");
+  return a.leader ? -1 : 1;
+}
+
 function runValidation() {
   const result = spawnSync(process.execPath, [path.join(__dirname, "validate.js")], {
     cwd: rootDir,
@@ -142,6 +173,15 @@ function renderTable(lines, startIndex) {
   };
 }
 
+function renderImage(line) {
+  const match = line.match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
+  if (!match) return null;
+  const alt = match[1].trim();
+  const href = match[2].trim();
+  const caption = alt ? `<figcaption>${escapeHtml(alt)}</figcaption>` : "";
+  return `<figure class="report-figure"><img src="${escapeAttribute(href)}" alt="${escapeAttribute(alt)}" />${caption}</figure>`;
+}
+
 function renderMarkdown(markdown) {
   const lines = markdown.split(/\r?\n/);
   const html = [];
@@ -151,6 +191,13 @@ function renderMarkdown(markdown) {
     const line = lines[index];
 
     if (!line.trim()) {
+      index += 1;
+      continue;
+    }
+
+    const imageHtml = renderImage(line.trim());
+    if (imageHtml) {
+      html.push(imageHtml);
       index += 1;
       continue;
     }
@@ -404,8 +451,10 @@ function renderReportCard(report, filterable = false) {
 
   return `<article class="report-card${attentionClass}"${filterAttrs}>
   <div class="report-top">
-    <span class="badge ${typeClass}">${TYPE_LABELS[report.report_type]}</span>
-    <span class="badge ${STATUS_CLASSES[report.status]}">${STATUS_LABELS[report.status]}</span>
+    <span class="report-status-set">
+      <span class="badge ${typeClass}">${TYPE_LABELS[report.report_type]}</span>
+      <span class="badge ${STATUS_CLASSES[report.status]}">${STATUS_LABELS[report.status]}</span>
+    </span>
     <span class="badge read-indicator" data-read-state>새 보고</span>
   </div>
   <h3>${escapeHtml(report.title)}</h3>
@@ -414,7 +463,7 @@ function renderReportCard(report, filterable = false) {
     <div><dt>담당</dt><dd>${escapeHtml(report.owner)}</dd></div>
     <div><dt>부서</dt><dd>${escapeHtml(report.department)}</dd></div>
     <div><dt>업데이트</dt><dd>${formatDate(report.updated_at)}</dd></div>
-    <div><dt>상태</dt><dd>${report.attention_required ? "확인 필요" : "정상 확인"}</dd></div>
+    <div><dt>상태</dt><dd>${report.attention_required ? "후속 확인" : "정상"}</dd></div>
   </dl>
   <div class="report-actions">
     <a class="button" href="${escapeAttribute(report.url)}">보고서 보기</a>
@@ -428,7 +477,7 @@ function renderEmpty(message) {
 }
 
 function unique(values) {
-  return Array.from(new Set(values.filter(Boolean))).sort((a, b) => a.localeCompare(b, "ko"));
+  return Array.from(new Set(values.filter(Boolean))).sort(compareDepartments);
 }
 
 function renderFilters(reports) {
@@ -466,7 +515,7 @@ function renderSummaryCards(reports) {
   const cards = [
     ["전체 보고", `${reports.length}건`, "등록된 완성 보고서"],
     ["결정 필요", `${decisionCount}건`, "우선 확인 대상"],
-    ["현황 보고", `${statusCount}건`, "확인 전용 보고"],
+    ["현황 보고", `${statusCount}건`, "공유형 보고"],
     ["최근 업데이트", formatDate(latest), "기준일"]
   ];
 
@@ -489,12 +538,9 @@ function renderPeopleBoard(people, reports) {
   });
 
   const blocks = Array.from(departments.entries())
-    .sort((a, b) => a[0].localeCompare(b[0], "ko"))
+    .sort((a, b) => compareDepartments(a[0], b[0]))
     .map(([department, departmentPeople]) => {
-      const orderedPeople = departmentPeople.sort((a, b) => {
-        if (a.leader === b.leader) return String(a.name).localeCompare(String(b.name), "ko");
-        return a.leader ? -1 : 1;
-      });
+      const orderedPeople = departmentPeople.sort(comparePeople);
 
       const totalRequests = orderedPeople.reduce(
         (sum, person) => sum + requestedReportsForPerson(reports, person).length,
@@ -518,7 +564,7 @@ function renderPeopleBoard(people, reports) {
         .join("");
 
       return `<section class="department-block">
-  <h3><span>${escapeHtml(department)}</span><span class="count">${totalRequests}건 요청</span></h3>
+  <h3><span>${escapeHtml(department)}</span><span class="count">${orderedPeople.length}명 · ${totalRequests}건</span></h3>
   <ul class="people-list">${peopleHtml}</ul>
 </section>`;
     })
@@ -534,7 +580,10 @@ function groupReports(reports, key) {
     if (!groups.has(groupName)) groups.set(groupName, []);
     groups.get(groupName).push(report);
   });
-  return Array.from(groups.entries()).sort((a, b) => a[0].localeCompare(b[0], "ko"));
+  const compare = key === "department"
+    ? (a, b) => compareDepartments(a[0], b[0])
+    : (a, b) => a[0].localeCompare(b[0], "ko");
+  return Array.from(groups.entries()).sort(compare);
 }
 
 function renderGroups(reports, key) {
@@ -573,7 +622,7 @@ function renderIndex(reports) {
     filters: renderFilters(reports),
     latest_reports: latestReports || renderEmpty("등록된 보고서가 없습니다."),
     decision_reports: decisionReports || renderEmpty("현재 결정 필요한 보고가 없습니다."),
-    status_reports: statusReports || renderEmpty("현재 확인만 필요한 현황 보고가 없습니다."),
+    status_reports: statusReports || renderEmpty("현재 현황 공유 보고가 없습니다."),
     owner_groups: renderGroups(reports, "owner"),
     department_groups: renderGroups(reports, "department")
   });

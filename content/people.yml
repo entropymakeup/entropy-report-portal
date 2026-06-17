@@ -1,6 +1,217 @@
 people:
+  - id: roy
+    name: Roy
+    department: 경영
+    role: CEO
+    leader: true
+    order: 1
+  - id: eugene
+    name: Eugene
+    department: 경영
+    role: CSO / Genome Nexus US Branch President
+    leader: true
+    order: 2
+  - id: daniel
+    name: Daniel
+    department: 경영
+    role: COO
+    leader: true
+    order: 3
+  - id: jay
+    name: Jay
+    department: 미국 TF
+    role: 겸직
+    leader: false
+    order: 11
   - id: ethan
     name: Ethan
     department: 미국 TF
     role: AX 담당
     leader: false
+    order: 12
+  - id: elena
+    name: Elena
+    department: 미국 TF
+    role: 실무
+    leader: false
+    order: 13
+  - id: japan_recruit
+    name: 채용
+    department: 일본 TF
+    role: 리더 채용 예정
+    leader: true
+    order: 20
+  - id: wendy
+    name: Wendy
+    department: 일본 TF
+    role: 겸직
+    leader: false
+    order: 21
+  - id: min
+    name: Min
+    department: 일본 TF
+    role: 실무
+    leader: false
+    order: 22
+  - id: joy
+    name: Joy
+    department: Creative 팀
+    role: Leader
+    leader: true
+    order: 30
+  - id: sia
+    name: Sia
+    department: Creative 팀
+    role: 상품기획
+    leader: false
+    order: 31
+  - id: jin
+    name: Jin
+    department: Creative 팀
+    role: 디자인
+    leader: false
+    order: 32
+  - id: disp
+    name: Disp
+    department: Creative 팀
+    role: 디자인
+    leader: false
+    order: 33
+  - id: jenny
+    name: Jenny
+    department: Creative 팀
+    role: 디자인
+    leader: false
+    order: 34
+  - id: growth_recruit
+    name: 채용
+    department: Growth 팀
+    role: 리더 채용 예정
+    leader: true
+    order: 40
+  - id: heize
+    name: Heize
+    department: Growth 팀
+    role: MD
+    leader: false
+    order: 41
+  - id: kiki
+    name: Kiki
+    department: Growth 팀
+    role: MD
+    leader: false
+    order: 42
+  - id: leni
+    name: Leni
+    department: Growth 팀
+    role: MD
+    leader: false
+    order: 43
+  - id: liah
+    name: Liah
+    department: Growth 팀
+    role: 해외영업
+    leader: false
+    order: 44
+  - id: grace
+    name: Grace
+    department: Growth 팀
+    role: 해외영업
+    leader: false
+    order: 45
+  - id: performance_jay
+    name: Jay
+    department: 퍼포먼스 마케팅팀
+    role: Leader
+    leader: true
+    order: 50
+  - id: tony
+    name: Tony
+    department: 퍼포먼스 마케팅팀
+    role: 퍼포먼스
+    leader: false
+    order: 51
+  - id: brand_wendy
+    name: Wendy
+    department: 브랜드 마케팅팀
+    role: Leader
+    leader: true
+    order: 60
+  - id: daisy
+    name: Daisy
+    department: 브랜드 마케팅팀
+    role: Contents
+    leader: false
+    order: 61
+  - id: chloe
+    name: Chloe
+    department: SCM팀
+    role: Leader
+    leader: true
+    order: 70
+  - id: lena
+    name: Lena
+    department: SCM팀
+    role: SCM
+    leader: false
+    order: 71
+  - id: bale
+    name: Bale
+    department: SCM팀
+    role: 구매
+    leader: false
+    order: 72
+  - id: yulia
+    name: Yulia
+    department: CEO팀
+    role: 인사/총무
+    leader: false
+    order: 80
+  - id: hayden
+    name: Hayden
+    department: CEO팀
+    role: CEO Staff
+    leader: false
+    order: 81
+  - id: ruka
+    name: Ruka
+    department: 외부조직
+    role: 디자인 외주
+    leader: false
+    order: 90
+  - id: koma_kowi
+    name: 코마·코위
+    department: 외부조직
+    role: 틱톡샵
+    leader: false
+    order: 91
+  - id: new_amazon_agency
+    name: 신규대행사
+    department: 외부조직
+    role: 아마존
+    leader: false
+    order: 92
+  - id: endgame
+    name: 엔드게임
+    department: 외부조직
+    role: 마케팅 외주
+    leader: false
+    order: 93
+  - id: japan_lily
+    name: 일본 Lily
+    department: 외부조직
+    role: 시딩
+    leader: false
+    order: 94
+  - id: us_vietnam
+    name: 미국 Vietnam 1, 2, 3
+    department: 외부조직
+    role: 시딩
+    leader: false
+    order: 95
+  - id: finnest
+    name: Finnest
+    department: 외부조직
+    role: 재무/회계
+    leader: false
+    order: 96
