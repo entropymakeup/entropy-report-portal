@@ -1,5 +1,6 @@
 people:
   - id: ethan
     name: Ethan
-    department: AX
+    department: 미국 TF
     role: AX 담당
+    leader: false

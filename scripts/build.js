@@ -6,6 +6,7 @@ const crypto = require("crypto");
 const rootDir = path.resolve(__dirname, "..");
 const srcDir = path.join(rootDir, "src");
 const reportsDir = path.join(rootDir, "content", "reports");
+const peoplePath = path.join(rootDir, "content", "people.yml");
 const publicDir = path.join(rootDir, "public");
 const distDir = path.join(rootDir, "dist");
 
@@ -284,6 +285,49 @@ function readReports() {
     .sort((a, b) => String(b.updated_at).localeCompare(String(a.updated_at)));
 }
 
+function readPeople() {
+  if (!fs.existsSync(peoplePath)) return [];
+
+  const people = [];
+  let current = null;
+
+  fs.readFileSync(peoplePath, "utf8").split(/\r?\n/).forEach((line) => {
+    const itemMatch = line.match(/^\s*-\s+id:\s*(.+)\s*$/);
+    if (itemMatch) {
+      if (current) people.push(current);
+      current = { id: parseValue(itemMatch[1]) };
+      return;
+    }
+
+    if (!current) return;
+    const fieldMatch = line.match(/^\s+([a-zA-Z0-9_]+):\s*(.*)\s*$/);
+    if (fieldMatch) {
+      current[fieldMatch[1]] = parseValue(fieldMatch[2]);
+    }
+  });
+
+  if (current) people.push(current);
+  return people;
+}
+
+function splitList(value) {
+  if (!value) return [];
+  return String(value)
+    .split(",")
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
+
+function requestedReportsForPerson(reports, person) {
+  return reports.filter((report) => {
+    const requested = splitList(report.requested_to);
+    if (requested.length) {
+      return requested.includes(person.id) || requested.includes(person.name);
+    }
+    return report.owner === person.name;
+  });
+}
+
 function renderMetaItems(report) {
   const items = [
     ["보고 부서", report.department],
@@ -340,6 +384,8 @@ function renderReportPage(report) {
     summary: escapeHtml(report.summary),
     owner: escapeHtml(report.owner),
     department: escapeHtml(report.department),
+    slug: escapeAttribute(report.slug),
+    updated_at: escapeAttribute(report.updated_at),
     updated_at_display: formatDate(report.updated_at),
     status_label: STATUS_LABELS[report.status],
     status_class: STATUS_CLASSES[report.status],
@@ -353,13 +399,14 @@ function renderReportCard(report, filterable = false) {
   const typeClass = report.report_type === "decision" ? "badge-decision" : "badge-status";
   const attentionClass = report.attention_required ? " attention" : "";
   const filterAttrs = filterable
-    ? ` data-report-card data-type="${escapeAttribute(report.report_type)}" data-department="${escapeAttribute(report.department)}" data-status="${escapeAttribute(report.status)}"`
-    : "";
+    ? ` data-report-card data-filter-card data-report-slug="${escapeAttribute(report.slug)}" data-report-updated-at="${escapeAttribute(report.updated_at)}" data-type="${escapeAttribute(report.report_type)}" data-department="${escapeAttribute(report.department)}" data-status="${escapeAttribute(report.status)}"`
+    : ` data-report-card data-report-slug="${escapeAttribute(report.slug)}" data-report-updated-at="${escapeAttribute(report.updated_at)}"`;
 
   return `<article class="report-card${attentionClass}"${filterAttrs}>
   <div class="report-top">
     <span class="badge ${typeClass}">${TYPE_LABELS[report.report_type]}</span>
     <span class="badge ${STATUS_CLASSES[report.status]}">${STATUS_LABELS[report.status]}</span>
+    <span class="badge read-indicator" data-read-state>새 보고</span>
   </div>
   <h3>${escapeHtml(report.title)}</h3>
   <p>${escapeHtml(report.summary)}</p>
@@ -369,7 +416,10 @@ function renderReportCard(report, filterable = false) {
     <div><dt>업데이트</dt><dd>${formatDate(report.updated_at)}</dd></div>
     <div><dt>상태</dt><dd>${report.attention_required ? "확인 필요" : "정상 확인"}</dd></div>
   </dl>
-  <a class="button" href="${escapeAttribute(report.url)}">보고서 보기</a>
+  <div class="report-actions">
+    <a class="button" href="${escapeAttribute(report.url)}">보고서 보기</a>
+    <button class="read-toggle" type="button" data-read-toggle>읽음으로 표시</button>
+  </div>
 </article>`;
 }
 
@@ -428,6 +478,55 @@ function renderSummaryCards(reports) {
     .join("");
 }
 
+function renderPeopleBoard(people, reports) {
+  if (!people.length) return renderEmpty("등록된 직원 정보가 없습니다.");
+
+  const departments = new Map();
+  people.forEach((person) => {
+    const department = person.department || "미분류";
+    if (!departments.has(department)) departments.set(department, []);
+    departments.get(department).push(person);
+  });
+
+  const blocks = Array.from(departments.entries())
+    .sort((a, b) => a[0].localeCompare(b[0], "ko"))
+    .map(([department, departmentPeople]) => {
+      const orderedPeople = departmentPeople.sort((a, b) => {
+        if (a.leader === b.leader) return String(a.name).localeCompare(String(b.name), "ko");
+        return a.leader ? -1 : 1;
+      });
+
+      const totalRequests = orderedPeople.reduce(
+        (sum, person) => sum + requestedReportsForPerson(reports, person).length,
+        0
+      );
+
+      const peopleHtml = orderedPeople
+        .map((person) => {
+          const requestedReports = requestedReportsForPerson(reports, person);
+          const slugs = requestedReports.map((report) => report.slug).join("|");
+          const updated = requestedReports.map((report) => `${report.slug}:${report.updated_at}`).join("|");
+          const leaderBadge = person.leader ? '<span class="pill ok">리더</span>' : "";
+          return `<li class="person-card" data-person-card data-person-id="${escapeAttribute(person.id)}" data-person-slugs="${escapeAttribute(slugs)}" data-person-updated="${escapeAttribute(updated)}">
+  <div class="person-main">
+    <span class="person-name"><span class="unread-light" aria-hidden="true"></span>${escapeHtml(person.name)} ${leaderBadge}</span>
+    <span class="person-role">${escapeHtml(person.role || "역할 확인 필요")}</span>
+  </div>
+  <span class="count" data-person-unread>${requestedReports.length}건 요청</span>
+</li>`;
+        })
+        .join("");
+
+      return `<section class="department-block">
+  <h3><span>${escapeHtml(department)}</span><span class="count">${totalRequests}건 요청</span></h3>
+  <ul class="people-list">${peopleHtml}</ul>
+</section>`;
+    })
+    .join("");
+
+  return `<div class="people-board">${blocks}</div>`;
+}
+
 function groupReports(reports, key) {
   const groups = new Map();
   reports.forEach((report) => {
@@ -454,6 +553,7 @@ function renderGroups(reports, key) {
 
 function renderIndex(reports) {
   const template = fs.readFileSync(path.join(srcDir, "index.html"), "utf8");
+  const people = readPeople();
   const latestReports = reports.map((report) => renderReportCard(report, true)).join("");
   const decisionReports = reports
     .filter((report) => report.decision_required)
@@ -469,6 +569,7 @@ function renderIndex(reports) {
     last_updated: formatDate(reports[0]?.updated_at),
     total_count: reports.length,
     summary_cards: renderSummaryCards(reports),
+    people_board: renderPeopleBoard(people, reports),
     filters: renderFilters(reports),
     latest_reports: latestReports || renderEmpty("등록된 보고서가 없습니다."),
     decision_reports: decisionReports || renderEmpty("현재 결정 필요한 보고가 없습니다."),

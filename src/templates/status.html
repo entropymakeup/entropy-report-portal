@@ -18,18 +18,24 @@
   <header class="topbar">
     <div class="wrap topbar-inner">
       <a class="brand" href="../../" aria-label="Entropy Makeup Report Hub">
-        <img class="brand-mark" src="../../assets/entropy-logo-bk.png" alt="Entropy Makeup" />
+        <span class="brand-logos">
+          <img class="brand-mark" src="../../assets/entropy-logo-bk.png" alt="Entropy Makeup" />
+          <span class="brand-logo-separator" aria-hidden="true"></span>
+          <img class="brand-mark brand-mark-morandi" src="../../assets/morandi-logo.png" alt="Morandi Park" />
+        </span>
         <span class="brand-text">Status Brief<small>HTML report</small></span>
       </a>
       <div class="top-actions" aria-label="보고서 상태">
         <span class="badge badge-status">현황 공유</span>
         <span class="badge {{status_class}}">{{status_label}}</span>
+        <span class="chip" data-page-read-state>읽음 처리됨</span>
+        <button class="ghost-button" type="button" data-page-read-toggle>읽지 않음으로 표시</button>
         <span class="chip">업데이트 {{updated_at_display}}</span>
       </div>
     </div>
   </header>
 
-  <main>
+  <main data-report-page data-report-slug="{{slug}}" data-report-updated-at="{{updated_at}}">
     <section class="report-hero">
       <div class="wrap report-hero-grid">
         <div>
@@ -63,5 +69,6 @@
   <footer class="footer">
     <div class="wrap line">Entropy Makeup · Internal Status Brief · 기준일 {{updated_at_display}}</div>
   </footer>
+  <script src="../../assets/app.js" defer></script>
 </body>
 </html>

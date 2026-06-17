@@ -12,12 +12,17 @@
   <header class="topbar">
     <div class="wrap topbar-inner">
       <a class="brand" href="./" aria-label="Entropy Makeup Report Hub">
-        <img class="brand-mark" src="./assets/entropy-logo-bk.png" alt="Entropy Makeup" />
+        <span class="brand-logos">
+          <img class="brand-mark" src="./assets/entropy-logo-bk.png" alt="Entropy Makeup" />
+          <span class="brand-logo-separator" aria-hidden="true"></span>
+          <img class="brand-mark brand-mark-morandi" src="./assets/morandi-logo.png" alt="Morandi Park" />
+        </span>
         <span class="brand-text">Report Hub<small>HTML reports</small></span>
       </a>
       <div class="top-actions" aria-label="포털 상태">
         <span class="chip">최근 업데이트 2026.06.17</span>
-        <span class="chip">1개 보고서</span>
+        <span class="chip unread-chip" data-unread-count>읽지 않은 보고 0건</span>
+        <span class="chip">2개 보고서</span>
       </div>
     </div>
   </header>
@@ -31,12 +36,34 @@
           <p class="lead">완성된 보고서를 유형과 상태별로 빠르게 확인하는 정적 보고 포털입니다.</p>
         </div>
         <div class="hero-meta" aria-label="보고 현황 요약">
-          <div class="stat-card"><span class="stat-label">전체 보고</span><span class="stat-value">1건</span><span class="stat-note">등록된 완성 보고서</span></div><div class="stat-card"><span class="stat-label">결정 필요</span><span class="stat-value">0건</span><span class="stat-note">우선 확인 대상</span></div><div class="stat-card"><span class="stat-label">현황 보고</span><span class="stat-value">1건</span><span class="stat-note">확인 전용 보고</span></div><div class="stat-card"><span class="stat-label">최근 업데이트</span><span class="stat-value">2026.06.17</span><span class="stat-note">기준일</span></div>
+          <div class="stat-card"><span class="stat-label">전체 보고</span><span class="stat-value">2건</span><span class="stat-note">등록된 완성 보고서</span></div><div class="stat-card"><span class="stat-label">결정 필요</span><span class="stat-value">0건</span><span class="stat-note">우선 확인 대상</span></div><div class="stat-card"><span class="stat-label">현황 보고</span><span class="stat-value">2건</span><span class="stat-note">확인 전용 보고</span></div><div class="stat-card"><span class="stat-label">최근 업데이트</span><span class="stat-value">2026.06.17</span><span class="stat-note">기준일</span></div>
         </div>
       </div>
     </section>
 
-    <section class="section alt" aria-labelledby="latest-title">
+    <section class="section alt" aria-labelledby="people-title">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Report Requests</div>
+            <h2 id="people-title">보고 요청 대상</h2>
+            <p class="section-note">부서별로 요청 대상을 묶고, 읽지 않은 보고가 있으면 표시합니다.</p>
+          </div>
+        </div>
+        <div class="people-board"><section class="department-block">
+  <h3><span>미국 TF</span><span class="count">2건 요청</span></h3>
+  <ul class="people-list"><li class="person-card" data-person-card data-person-id="ethan" data-person-slugs="2026-06-17_ethan_ax-report-test|2026-06-17_ethan_claude-code-onboarding" data-person-updated="2026-06-17_ethan_ax-report-test:2026-06-17|2026-06-17_ethan_claude-code-onboarding:2026-06-17">
+  <div class="person-main">
+    <span class="person-name"><span class="unread-light" aria-hidden="true"></span>Ethan </span>
+    <span class="person-role">AX 담당</span>
+  </div>
+  <span class="count" data-person-unread>2건 요청</span>
+</li></ul>
+</section></div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="latest-title">
       <div class="wrap">
         <div class="section-head">
           <div>
@@ -52,29 +79,51 @@
 </select></label>
 <label class="field"><span>부서</span><select id="department-filter">
   <option value="all">전체</option>
-  <option value="AX">AX</option>
+  <option value="미국 TF">미국 TF</option>
 </select></label>
 <label class="field"><span>상태</span><select id="status-filter">
   <option value="all">전체</option>
-  <option value="normal">정상</option>
+  <option value="normal">정상</option><option value="watch">관찰</option>
 </select></label>
           </div>
         </div>
         <div class="report-grid" id="report-list">
-          <article class="report-card attention" data-report-card data-type="status" data-department="AX" data-status="normal">
+          <article class="report-card attention" data-report-card data-filter-card data-report-slug="2026-06-17_ethan_ax-report-test" data-report-updated-at="2026-06-17" data-type="status" data-department="미국 TF" data-status="normal">
   <div class="report-top">
     <span class="badge badge-status">현황 공유</span>
     <span class="badge badge-normal">정상</span>
+    <span class="badge read-indicator" data-read-state>새 보고</span>
   </div>
   <h3>Entropy HTML 보고 포털 MVP 구축 현황</h3>
-  <p>직원별 HTML 보고서를 한 링크에서 확인할 수 있도록 정적 보고 포털 MVP를 준비했습니다. 현재 첫 테스트 보고서가 등록되어 있으며, GitHub Pages 배포 전 최종 확인 단계입니다.</p>
+  <p>HTML 보고 포털 MVP가 GitHub Pages에 배포되었습니다. 현재 비밀번호 게이트와 첫 테스트 보고서가 적용되어 있으며, 실제 운영 전에는 민감 보고서 공개 범위 확인이 필요합니다.</p>
   <dl class="report-meta">
     <div><dt>담당</dt><dd>Ethan</dd></div>
-    <div><dt>부서</dt><dd>AX</dd></div>
+    <div><dt>부서</dt><dd>미국 TF</dd></div>
     <div><dt>업데이트</dt><dd>2026.06.17</dd></div>
     <div><dt>상태</dt><dd>확인 필요</dd></div>
   </dl>
-  <a class="button" href="./reports/2026-06-17_ethan_ax-report-test/index.html">보고서 보기</a>
+  <div class="report-actions">
+    <a class="button" href="./reports/2026-06-17_ethan_ax-report-test/index.html">보고서 보기</a>
+    <button class="read-toggle" type="button" data-read-toggle>읽음으로 표시</button>
+  </div>
+</article><article class="report-card attention" data-report-card data-filter-card data-report-slug="2026-06-17_ethan_claude-code-onboarding" data-report-updated-at="2026-06-17" data-type="status" data-department="미국 TF" data-status="watch">
+  <div class="report-top">
+    <span class="badge badge-status">현황 공유</span>
+    <span class="badge badge-watch">관찰</span>
+    <span class="badge read-indicator" data-read-state>새 보고</span>
+  </div>
+  <h3>브랜드지놈 Claude Code 기초 교육 온보딩 구성안</h3>
+  <p>Claude Code를 개인 생산성 도구가 아니라 회사 업무 기준을 재사용하는 운영 환경으로 이해시키기 위한 기초 교육 구성안입니다. 교육 일정, 참석 대상, 실습 자료 확정이 필요합니다.</p>
+  <dl class="report-meta">
+    <div><dt>담당</dt><dd>Ethan</dd></div>
+    <div><dt>부서</dt><dd>미국 TF</dd></div>
+    <div><dt>업데이트</dt><dd>2026.06.17</dd></div>
+    <div><dt>상태</dt><dd>확인 필요</dd></div>
+  </dl>
+  <div class="report-actions">
+    <a class="button" href="./reports/2026-06-17_ethan_claude-code-onboarding/index.html">보고서 보기</a>
+    <button class="read-toggle" type="button" data-read-toggle>읽음으로 표시</button>
+  </div>
 </article>
         </div>
         <div class="empty-state" id="filtered-empty" hidden>조건에 맞는 보고서가 없습니다.</div>
@@ -106,20 +155,42 @@
           </div>
         </div>
         <div class="report-grid">
-          <article class="report-card attention">
+          <article class="report-card attention" data-report-card data-report-slug="2026-06-17_ethan_ax-report-test" data-report-updated-at="2026-06-17">
   <div class="report-top">
     <span class="badge badge-status">현황 공유</span>
     <span class="badge badge-normal">정상</span>
+    <span class="badge read-indicator" data-read-state>새 보고</span>
   </div>
   <h3>Entropy HTML 보고 포털 MVP 구축 현황</h3>
-  <p>직원별 HTML 보고서를 한 링크에서 확인할 수 있도록 정적 보고 포털 MVP를 준비했습니다. 현재 첫 테스트 보고서가 등록되어 있으며, GitHub Pages 배포 전 최종 확인 단계입니다.</p>
+  <p>HTML 보고 포털 MVP가 GitHub Pages에 배포되었습니다. 현재 비밀번호 게이트와 첫 테스트 보고서가 적용되어 있으며, 실제 운영 전에는 민감 보고서 공개 범위 확인이 필요합니다.</p>
   <dl class="report-meta">
     <div><dt>담당</dt><dd>Ethan</dd></div>
-    <div><dt>부서</dt><dd>AX</dd></div>
+    <div><dt>부서</dt><dd>미국 TF</dd></div>
     <div><dt>업데이트</dt><dd>2026.06.17</dd></div>
     <div><dt>상태</dt><dd>확인 필요</dd></div>
   </dl>
-  <a class="button" href="./reports/2026-06-17_ethan_ax-report-test/index.html">보고서 보기</a>
+  <div class="report-actions">
+    <a class="button" href="./reports/2026-06-17_ethan_ax-report-test/index.html">보고서 보기</a>
+    <button class="read-toggle" type="button" data-read-toggle>읽음으로 표시</button>
+  </div>
+</article><article class="report-card attention" data-report-card data-report-slug="2026-06-17_ethan_claude-code-onboarding" data-report-updated-at="2026-06-17">
+  <div class="report-top">
+    <span class="badge badge-status">현황 공유</span>
+    <span class="badge badge-watch">관찰</span>
+    <span class="badge read-indicator" data-read-state>새 보고</span>
+  </div>
+  <h3>브랜드지놈 Claude Code 기초 교육 온보딩 구성안</h3>
+  <p>Claude Code를 개인 생산성 도구가 아니라 회사 업무 기준을 재사용하는 운영 환경으로 이해시키기 위한 기초 교육 구성안입니다. 교육 일정, 참석 대상, 실습 자료 확정이 필요합니다.</p>
+  <dl class="report-meta">
+    <div><dt>담당</dt><dd>Ethan</dd></div>
+    <div><dt>부서</dt><dd>미국 TF</dd></div>
+    <div><dt>업데이트</dt><dd>2026.06.17</dd></div>
+    <div><dt>상태</dt><dd>확인 필요</dd></div>
+  </dl>
+  <div class="report-actions">
+    <a class="button" href="./reports/2026-06-17_ethan_claude-code-onboarding/index.html">보고서 보기</a>
+    <button class="read-toggle" type="button" data-read-toggle>읽음으로 표시</button>
+  </div>
 </article>
         </div>
       </div>
@@ -137,11 +208,11 @@
         <div class="group-grid">
           <div class="group-card">
             <h3>직원별</h3>
-            <ul class="group-list"><li><a href="./reports/2026-06-17_ethan_ax-report-test/index.html"><span>Ethan</span><span class="count">1건</span></a></li></ul>
+            <ul class="group-list"><li><a href="./reports/2026-06-17_ethan_ax-report-test/index.html"><span>Ethan</span><span class="count">2건</span></a></li></ul>
           </div>
           <div class="group-card">
             <h3>부서별</h3>
-            <ul class="group-list"><li><a href="./reports/2026-06-17_ethan_ax-report-test/index.html"><span>AX</span><span class="count">1건</span></a></li></ul>
+            <ul class="group-list"><li><a href="./reports/2026-06-17_ethan_ax-report-test/index.html"><span>미국 TF</span><span class="count">2건</span></a></li></ul>
           </div>
         </div>
       </div>
