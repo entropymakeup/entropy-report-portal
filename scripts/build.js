@@ -1,6 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const { spawnSync } = require("child_process");
+const crypto = require("crypto");
 
 const rootDir = path.resolve(__dirname, "..");
 const srcDir = path.join(rootDir, "src");
@@ -246,6 +247,21 @@ function copyDir(source, target) {
   });
 }
 
+function writeAuthConfig() {
+  const password = process.env.REPORT_PORTAL_PASSWORD?.trim();
+  const passwordHash = process.env.REPORT_PORTAL_PASSWORD_HASH ||
+    (password ? crypto.createHash("sha256").update(password, "utf8").digest("hex") : "");
+  const enabled = Boolean(passwordHash);
+
+  const config = `window.REPORT_PORTAL_AUTH = ${JSON.stringify({
+    enabled,
+    passwordHash,
+    assetBase: "./assets/"
+  })};\n`;
+
+  fs.writeFileSync(path.join(distDir, "assets", "config.js"), config, "utf8");
+}
+
 function readReports() {
   return fs
     .readdirSync(reportsDir)
@@ -476,7 +492,9 @@ function main() {
 
   copyFile(path.join(srcDir, "styles.css"), path.join(distDir, "assets", "styles.css"));
   copyFile(path.join(srcDir, "app.js"), path.join(distDir, "assets", "app.js"));
+  copyFile(path.join(srcDir, "gate.js"), path.join(distDir, "assets", "gate.js"));
   copyDir(path.join(publicDir, "assets"), path.join(distDir, "assets"));
+  writeAuthConfig();
 
   fs.writeFileSync(path.join(distDir, "index.html"), renderIndex(reports), "utf8");
 

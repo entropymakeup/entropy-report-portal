@@ -65,9 +65,12 @@ summary:
 ## GitHub Pages 배포
 
 1. 이 폴더를 GitHub 저장소에 push합니다.
-2. GitHub 저장소의 `Settings > Pages`에서 Source를 `GitHub Actions`로 설정합니다.
-3. `main` 브랜치에 push하면 `.github/workflows/pages.yml`이 실행됩니다.
-4. Actions가 `npm run build`를 실행하고 `dist/`를 Pages artifact로 배포합니다.
+2. GitHub 저장소 secret에 `REPORT_PORTAL_PASSWORD`를 등록합니다.
+3. GitHub 저장소의 `Settings > Pages`에서 Source를 `GitHub Actions`로 설정합니다.
+4. `main` 브랜치에 push하면 `.github/workflows/pages.yml`이 실행됩니다.
+5. Actions가 `npm run build`를 실행하고 `dist/`를 Pages artifact로 배포합니다.
+
+비밀번호 게이트는 정적 사이트의 첫 화면을 가리는 장치입니다. 저장소가 public이면 저장소 파일 자체는 외부에서 볼 수 있으므로 민감한 보고서는 public 저장소에 넣지 않습니다.
 
 ## 빌드 결과
 
