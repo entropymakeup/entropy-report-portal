@@ -33,6 +33,17 @@
 ## 다음 액션
 ```
 
+강의안, 온보딩 구성안처럼 문서 자체의 목차와 진행안이 본문인 경우에는 `content_format: lecture_outline`를 사용할 수 있습니다. 이 경우 지표·변화 틀에 억지로 맞추지 않고 아래 섹션을 사용합니다.
+
+```markdown
+## 강의 목표
+## 강의 목차
+## 세션별 진행안
+## 팀별 실습 예시
+## HTML 보고 실습
+## 운영 메모
+```
+
 ## Markdown frontmatter
 
 모든 보고서는 최소 아래 필드를 가져야 합니다.
@@ -46,6 +57,7 @@ report_type:
 decision_required:
 attention_required:
 status:
+content_format:
 created_at:
 updated_at:
 summary:
@@ -58,6 +70,7 @@ summary:
 - `decision_required`: `true`, `false`
 - `attention_required`: `true`, `false`
 - `status`: `normal`, `watch`, `risk`
+- `content_format`: 생략 가능, 강의안 예외만 `lecture_outline`
 
 ## 구현 규칙
 

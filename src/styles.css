@@ -1004,6 +1004,64 @@ tr:last-child td {
   .brand-text {
     padding-left: 10px;
   }
+
+  .table-wrap {
+    overflow-x: visible;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+  }
+
+  table,
+  thead,
+  tbody,
+  tr,
+  td {
+    display: block;
+  }
+
+  table {
+    min-width: 0;
+    background: transparent;
+  }
+
+  thead {
+    display: none;
+  }
+
+  tbody {
+    display: grid;
+    gap: 10px;
+  }
+
+  tr {
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.82);
+  }
+
+  td {
+    display: grid;
+    grid-template-columns: minmax(88px, 34%) 1fr;
+    gap: 12px;
+    padding: 12px 13px;
+  }
+
+  td::before {
+    content: attr(data-label);
+    color: var(--mint-900);
+    font-size: 11px;
+    font-weight: 820;
+  }
+
+  tbody tr:nth-child(even) td {
+    background: transparent;
+  }
+
+  td:first-child {
+    background: rgba(215, 251, 239, 0.35);
+  }
 }
 
 @media print {

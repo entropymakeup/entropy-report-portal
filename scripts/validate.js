@@ -22,6 +22,10 @@ const SECTION_RULES = {
   status: ["핵심 요약", "지표 현황", "주요 변화·이슈", "다음 액션"]
 };
 
+const CONTENT_FORMAT_SECTION_RULES = {
+  lecture_outline: ["강의 목표", "강의 목차", "세션별 진행안", "팀별 실습 예시", "HTML 보고 실습", "운영 메모"]
+};
+
 function parseValue(value) {
   const trimmed = value.trim();
   if (trimmed === "true") return true;
@@ -101,6 +105,10 @@ function validateReport(filePath) {
     errors.push(`${relativePath}: status는 normal, watch, risk 중 하나여야 합니다.`);
   }
 
+  if (data.content_format && !Object.keys(CONTENT_FORMAT_SECTION_RULES).includes(data.content_format)) {
+    errors.push(`${relativePath}: content_format은 lecture_outline만 허용됩니다.`);
+  }
+
   if (!isDate(data.created_at)) {
     errors.push(`${relativePath}: created_at은 YYYY-MM-DD 형식이어야 합니다.`);
   }
@@ -117,7 +125,7 @@ function validateReport(filePath) {
     errors.push(`${relativePath}: status 보고서는 decision_required가 false여야 합니다.`);
   }
 
-  const expectedSections = SECTION_RULES[data.report_type] || [];
+  const expectedSections = CONTENT_FORMAT_SECTION_RULES[data.content_format] || SECTION_RULES[data.report_type] || [];
   const actualSections = extractSections(body);
   expectedSections.forEach((sectionTitle) => {
     if (!actualSections.includes(sectionTitle)) {

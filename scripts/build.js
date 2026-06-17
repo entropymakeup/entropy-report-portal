@@ -164,7 +164,12 @@ function renderTable(lines, startIndex) {
 
   const headHtml = header.map((cell) => `<th>${renderInline(cell)}</th>`).join("");
   const bodyHtml = rows
-    .map((row) => `<tr>${row.map((cell) => `<td>${renderInline(cell)}</td>`).join("")}</tr>`)
+    .map(
+      (row) =>
+        `<tr>${row
+          .map((cell, cellIndex) => `<td data-label="${escapeAttribute(header[cellIndex] || "")}">${renderInline(cell)}</td>`)
+          .join("")}</tr>`
+    )
     .join("");
 
   return {
