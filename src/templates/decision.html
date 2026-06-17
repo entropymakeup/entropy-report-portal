@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{title}} | Entropy Makeup</title>
+  <link rel="stylesheet" href="../../assets/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a class="brand" href="../../" aria-label="Entropy Makeup Report Hub">
+        <img class="brand-mark" src="../../assets/entropy-logo-bk.png" alt="Entropy Makeup" />
+        <span class="brand-text">Decision Report<small>HTML report</small></span>
+      </a>
+      <div class="top-actions" aria-label="보고서 상태">
+        <span class="badge badge-decision">의사결정 필요</span>
+        <span class="badge {{status_class}}">{{status_label}}</span>
+        <span class="chip">업데이트 {{updated_at_display}}</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="report-hero">
+      <div class="wrap report-hero-grid">
+        <div>
+          <div class="eyebrow">Decision Request</div>
+          <h1>{{title}}</h1>
+          <p class="report-summary">{{summary}}</p>
+        </div>
+        <div class="meta-grid" aria-label="보고서 메타 정보">
+          {{meta_items}}
+        </div>
+      </div>
+    </section>
+
+    <section class="report-map" aria-labelledby="toc-title">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Report Map</div>
+            <h2 id="toc-title">보고 목차</h2>
+          </div>
+        </div>
+        <nav class="toc-grid" aria-label="문서 목차">
+          {{toc_items}}
+        </nav>
+      </div>
+    </section>
+
+    {{sections}}
+  </main>
+
+  <footer class="footer">
+    <div class="wrap line">Entropy Makeup · Internal Decision Report · 기준일 {{updated_at_display}}</div>
+  </footer>
+</body>
+</html>

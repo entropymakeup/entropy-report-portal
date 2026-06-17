@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Entropy Makeup | Report Hub</title>
+  <link rel="stylesheet" href="./assets/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a class="brand" href="./" aria-label="Entropy Makeup Report Hub">
+        <img class="brand-mark" src="./assets/entropy-logo-bk.png" alt="Entropy Makeup" />
+        <span class="brand-text">Report Hub<small>HTML reports</small></span>
+      </a>
+      <div class="top-actions" aria-label="포털 상태">
+        <span class="chip">최근 업데이트 {{last_updated}}</span>
+        <span class="chip">{{total_count}}개 보고서</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="portal-hero">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="eyebrow">Management of Communication</div>
+          <h1>HTML 보고 모음</h1>
+          <p class="lead">완성된 보고서를 유형과 상태별로 빠르게 확인하는 정적 보고 포털입니다.</p>
+        </div>
+        <div class="hero-meta" aria-label="보고 현황 요약">
+          {{summary_cards}}
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" aria-labelledby="latest-title">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Latest</div>
+            <h2 id="latest-title">최신 보고 목록</h2>
+            <p class="section-note">업데이트일 기준으로 가장 최근 보고서를 먼저 보여줍니다.</p>
+          </div>
+          <div class="toolbar" aria-label="보고서 필터">
+            {{filters}}
+          </div>
+        </div>
+        <div class="report-grid" id="report-list">
+          {{latest_reports}}
+        </div>
+        <div class="empty-state" id="filtered-empty" hidden>조건에 맞는 보고서가 없습니다.</div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="decision-title">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Decision Required</div>
+            <h2 id="decision-title">오늘 결정 필요한 보고</h2>
+            <p class="section-note">지금 판단이 필요한 보고서를 가장 먼저 확인할 수 있습니다.</p>
+          </div>
+        </div>
+        <div class="report-grid priority">
+          {{decision_reports}}
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" aria-labelledby="status-title">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Status Briefs</div>
+            <h2 id="status-title">확인만 필요한 현황 보고</h2>
+            <p class="section-note">의사결정 없이 읽고 현황을 확인하는 보고입니다.</p>
+          </div>
+        </div>
+        <div class="report-grid">
+          {{status_reports}}
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="group-title">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">People & Teams</div>
+            <h2 id="group-title">직원별 / 부서별 보고 목록</h2>
+            <p class="section-note">담당자와 부서 기준으로 보고서를 다시 찾을 수 있습니다.</p>
+          </div>
+        </div>
+        <div class="group-grid">
+          <div class="group-card">
+            <h3>직원별</h3>
+            {{owner_groups}}
+          </div>
+          <div class="group-card">
+            <h3>부서별</h3>
+            {{department_groups}}
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap line">Entropy Makeup · Report Hub · 생성일 {{generated_at}}</div>
+  </footer>
+
+  <script src="./assets/app.js" defer></script>
+</body>
+</html>
