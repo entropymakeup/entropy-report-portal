@@ -101,36 +101,75 @@
     if (!pageReport || pageReport.dataset.reportPageMode !== "paginated") return;
     const sections = Array.from(pageReport.querySelectorAll("[data-report-section]"));
     if (sections.length <= 1) return;
+    const reportMap = pageReport.querySelector(".report-map");
+    const tocKicker = reportMap?.querySelector(".section-kicker");
+    const tocTitle = reportMap?.querySelector("h2");
+    const tocGrid = reportMap?.querySelector(".toc-grid");
 
     const pager = document.createElement("nav");
     pager.className = "report-pager";
     pager.setAttribute("aria-label", "보고서 페이지 이동");
     pager.innerHTML = `
-      <button class="pager-button" type="button" data-page-prev>이전</button>
-      <div class="page-tabs" role="tablist" aria-label="보고서 페이지"></div>
-      <button class="pager-button" type="button" data-page-next>다음</button>
+      <button class="pager-button" type="button" data-page-prev aria-label="이전 페이지">&larr; 이전</button>
+      <div class="pager-status" aria-live="polite">
+        <span class="pager-kicker">현재 페이지</span>
+        <span class="pager-title"></span>
+      </div>
+      <button class="pager-button" type="button" data-page-next aria-label="다음 페이지">다음 &rarr;</button>
     `;
 
-    const tabsWrap = pager.querySelector(".page-tabs");
-    const tabs = sections.map((section, index) => {
-      const button = document.createElement("button");
-      button.className = "page-tab";
-      button.type = "button";
-      button.setAttribute("role", "tab");
-      button.dataset.pageTarget = String(index);
-      button.textContent = section.dataset.pageTitle || `Page ${index + 1}`;
-      tabsWrap.appendChild(button);
-      return button;
-    });
+    sections[sections.length - 1].after(pager);
 
-    const reportMap = pageReport.querySelector(".report-map");
-    reportMap?.after(pager);
+    let currentHash = "";
+    try {
+      currentHash = decodeURIComponent(window.location.hash);
+    } catch (_error) {
+      currentHash = window.location.hash;
+    }
 
     let activeIndex = Math.max(
       0,
-      sections.findIndex((section) => `#${section.id}` === window.location.hash)
+      sections.findIndex((section) => `#${section.id}` === currentHash)
     );
     if (activeIndex === -1) activeIndex = 0;
+
+    const localHeadingId = (section, heading, index) => {
+      if (heading.id) return heading.id;
+      const base = heading.textContent
+        .trim()
+        .toLowerCase()
+        .replace(/[^\p{L}\p{N}]+/gu, "-")
+        .replace(/^-+|-+$/g, "") || `heading-${index + 1}`;
+      heading.id = `${section.id}-${base}-${index + 1}`;
+      return heading.id;
+    };
+
+    const renderPageToc = (section) => {
+      if (!tocGrid) return;
+      const headings = Array.from(section.querySelectorAll(".report-section-content h3"));
+      const tocTargets = headings.length ? headings : [section.querySelector("h2")].filter(Boolean);
+      tocGrid.replaceChildren();
+      tocTargets.forEach((heading, index) => {
+        const headingId = localHeadingId(section, heading, index);
+        const link = document.createElement("a");
+        link.className = "toc-link";
+        link.href = `#${headingId}`;
+
+        const num = document.createElement("span");
+        num.className = "toc-num";
+        num.textContent = String(index + 1).padStart(2, "0");
+
+        const label = document.createElement("span");
+        label.className = "toc-label";
+        label.textContent = heading.textContent.trim();
+
+        link.append(num, label);
+        tocGrid.appendChild(link);
+      });
+      if (tocKicker) tocKicker.textContent = "현재 페이지";
+      if (tocTitle) tocTitle.textContent = `${section.dataset.pageTitle || "본문"} 목차`;
+      tocGrid.setAttribute("aria-label", "현재 페이지 목차");
+    };
 
     const setPage = (nextIndex, updateHash = false) => {
       activeIndex = Math.min(Math.max(nextIndex, 0), sections.length - 1);
@@ -139,37 +178,24 @@
         section.hidden = !active;
         section.classList.toggle("is-active-page", active);
       });
-      tabs.forEach((tab, index) => {
-        const active = index === activeIndex;
-        tab.classList.toggle("is-active", active);
-        tab.setAttribute("aria-selected", String(active));
-      });
       const prev = pager.querySelector("[data-page-prev]");
       const next = pager.querySelector("[data-page-next]");
+      const title = pager.querySelector(".pager-title");
       if (prev) prev.disabled = activeIndex === 0;
       if (next) next.disabled = activeIndex === sections.length - 1;
+      if (title) title.textContent = sections[activeIndex].dataset.pageTitle || `Page ${activeIndex + 1}`;
+      renderPageToc(sections[activeIndex]);
       if (updateHash) {
         history.replaceState(null, "", `#${sections[activeIndex].id}`);
       }
     };
 
     pager.addEventListener("click", (event) => {
-      const target = event.target.closest("[data-page-target], [data-page-prev], [data-page-next]");
+      const target = event.target.closest("[data-page-prev], [data-page-next]");
       if (!target) return;
       if (target.matches("[data-page-prev]")) setPage(activeIndex - 1, true);
       if (target.matches("[data-page-next]")) setPage(activeIndex + 1, true);
-      if (target.matches("[data-page-target]")) setPage(Number(target.dataset.pageTarget), true);
-      pager.scrollIntoView({ behavior: "smooth", block: "start" });
-    });
-
-    pageReport.querySelectorAll(".toc-link").forEach((link) => {
-      link.addEventListener("click", (event) => {
-        const sectionIndex = sections.findIndex((section) => `#${section.id}` === link.getAttribute("href"));
-        if (sectionIndex === -1) return;
-        event.preventDefault();
-        setPage(sectionIndex, true);
-        pager.scrollIntoView({ behavior: "smooth", block: "start" });
-      });
+      reportMap?.scrollIntoView({ behavior: "smooth", block: "start" });
     });
 
     setPage(activeIndex);
