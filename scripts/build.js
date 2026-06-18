@@ -497,7 +497,7 @@ function renderReportSections(sections) {
     .map((section, index) => {
       const num = String(index + 1).padStart(2, "0");
       const id = slugify(section.title);
-      return `<section class="report-section" id="${id}">
+      return `<section class="report-section" id="${id}" data-report-section data-page-index="${index}" data-page-title="${escapeAttribute(section.title)}">
   <div class="wrap">
     <div class="section-head">
       <div>
@@ -518,6 +518,7 @@ function renderReportPage(report) {
   const templatePath = path.join(srcDir, "templates", `${report.report_type}.html`);
   const template = fs.readFileSync(templatePath, "utf8");
   const pageLabels = PAGE_LABELS[report.content_format] || PAGE_LABELS[report.report_type];
+  const pageMode = report.page_mode === "paginated" ? "paginated" : "scroll";
   return renderTemplate(template, {
     brand_title: escapeHtml(pageLabels.brandTitle),
     brand_subtitle: escapeHtml(pageLabels.brandSubtitle),
@@ -531,6 +532,7 @@ function renderReportPage(report) {
     department: escapeHtml(report.department),
     slug: escapeAttribute(report.slug),
     updated_at: escapeAttribute(report.updated_at),
+    page_mode: escapeAttribute(pageMode),
     updated_at_display: formatDate(report.updated_at),
     status_label: STATUS_LABELS[report.status],
     status_class: STATUS_CLASSES[report.status],

@@ -4,16 +4,17 @@ owner: Ethan
 department: 미국 TF
 report_type: status
 content_format: source_note
+page_mode: paginated
 decision_required: false
 attention_required: true
 status: watch
 created_at: 2026-06-18
 updated_at: 2026-06-18
 requested_to: roy,eugene,daniel,jay,ethan,elena,heize,kiki,leni,liah,grace,performance_jay,brand_wendy,chloe,lena,bale
-summary: 매경 글로벌 K-뷰티 콘퍼런스 원문 노트를 최대한 보존해 완성하고, 미국 시장 실행을 4개 흐름으로 압축한 인사이트 노트입니다.
+summary: 매경 글로벌 K-뷰티 콘퍼런스 원문 노트를 보존해 완성하고, 미국 시장 실행 메모를 별도 페이지로 정리한 인사이트 노트입니다.
 ---
 
-## 1페이지. 완성된 옵시디언 원문
+## 컨퍼런스 원문 노트
 
 ### 1. Context
 
@@ -192,13 +193,13 @@ k뷰티의 [[프리미엄]] 化는 과학 기술에 있다. 모방 불가능한 
 
 [^1]: 특히 [[Dr. G]]는 인수 18개월 만에 50개국 동시 출시를 준비 중으로, 이는 로레알 역사상 전례 없는 속도
 
-## 2페이지. 인지 한계 기준 실행 압축
+## 미국 실행 메모
 
-### 1. 목차 및 글의 구조 설명
+### 1. 이 페이지를 읽는 법
 
-이 페이지는 위 원문을 4개 이하의 실행 흐름으로 압축한다. 인간 인지 한계의 법칙에 따라, 한 번에 검토할 전략 축을 4개로 제한하고 각 축마다 바로 만들 산출물을 붙인다.
+이 페이지는 앞의 콘퍼런스 노트에서 미국 시장 실행에 바로 연결되는 내용만 추린다. 한 번에 검토할 축을 네 개로 제한하고, 각 축마다 바로 만들 산출물을 붙인다.
 
-구조는 세 겹이다. 첫째, K-뷰티 2.0의 의미를 잡는다. 둘째, 미국에서 실행할 4개 작업흐름으로 나눈다. 셋째, 대표 또는 C-level이 결정해야 할 항목만 남긴다.
+구조는 세 겹이다. 첫째, K-뷰티 2.0의 의미를 잡는다. 둘째, 미국에서 실행할 네 개 작업흐름으로 나눈다. 셋째, 대표 또는 C-level이 결정해야 할 항목만 남긴다.
 
 ### 2. Body
 

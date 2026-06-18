@@ -97,6 +97,84 @@
     }
   }
 
+  const setupReportPagination = () => {
+    if (!pageReport || pageReport.dataset.reportPageMode !== "paginated") return;
+    const sections = Array.from(pageReport.querySelectorAll("[data-report-section]"));
+    if (sections.length <= 1) return;
+
+    const pager = document.createElement("nav");
+    pager.className = "report-pager";
+    pager.setAttribute("aria-label", "보고서 페이지 이동");
+    pager.innerHTML = `
+      <button class="pager-button" type="button" data-page-prev>이전</button>
+      <div class="page-tabs" role="tablist" aria-label="보고서 페이지"></div>
+      <button class="pager-button" type="button" data-page-next>다음</button>
+    `;
+
+    const tabsWrap = pager.querySelector(".page-tabs");
+    const tabs = sections.map((section, index) => {
+      const button = document.createElement("button");
+      button.className = "page-tab";
+      button.type = "button";
+      button.setAttribute("role", "tab");
+      button.dataset.pageTarget = String(index);
+      button.textContent = section.dataset.pageTitle || `Page ${index + 1}`;
+      tabsWrap.appendChild(button);
+      return button;
+    });
+
+    const reportMap = pageReport.querySelector(".report-map");
+    reportMap?.after(pager);
+
+    let activeIndex = Math.max(
+      0,
+      sections.findIndex((section) => `#${section.id}` === window.location.hash)
+    );
+    if (activeIndex === -1) activeIndex = 0;
+
+    const setPage = (nextIndex, updateHash = false) => {
+      activeIndex = Math.min(Math.max(nextIndex, 0), sections.length - 1);
+      sections.forEach((section, index) => {
+        const active = index === activeIndex;
+        section.hidden = !active;
+        section.classList.toggle("is-active-page", active);
+      });
+      tabs.forEach((tab, index) => {
+        const active = index === activeIndex;
+        tab.classList.toggle("is-active", active);
+        tab.setAttribute("aria-selected", String(active));
+      });
+      const prev = pager.querySelector("[data-page-prev]");
+      const next = pager.querySelector("[data-page-next]");
+      if (prev) prev.disabled = activeIndex === 0;
+      if (next) next.disabled = activeIndex === sections.length - 1;
+      if (updateHash) {
+        history.replaceState(null, "", `#${sections[activeIndex].id}`);
+      }
+    };
+
+    pager.addEventListener("click", (event) => {
+      const target = event.target.closest("[data-page-target], [data-page-prev], [data-page-next]");
+      if (!target) return;
+      if (target.matches("[data-page-prev]")) setPage(activeIndex - 1, true);
+      if (target.matches("[data-page-next]")) setPage(activeIndex + 1, true);
+      if (target.matches("[data-page-target]")) setPage(Number(target.dataset.pageTarget), true);
+      pager.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+
+    pageReport.querySelectorAll(".toc-link").forEach((link) => {
+      link.addEventListener("click", (event) => {
+        const sectionIndex = sections.findIndex((section) => `#${section.id}` === link.getAttribute("href"));
+        if (sectionIndex === -1) return;
+        event.preventDefault();
+        setPage(sectionIndex, true);
+        pager.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    });
+
+    setPage(activeIndex);
+  };
+
   const applyFilters = () => {
     if (!filterCards.length) return;
     const type = typeFilter?.value || "all";
@@ -132,4 +210,5 @@
 
   refreshReadState();
   applyFilters();
+  setupReportPagination();
 })();
